@@ -49,7 +49,7 @@ export class UsuarioService {
       usuario.nome = data.nome;
       usuario.cpf = data.cpf;
       usuario.email = data.email;
-      usuario.senha = data.senha;
+      usuario.senha = bcrypt.hashSync(data.senha, 8);
       usuario.cep = data.cep;
       usuario.logradouro = data.logradouro;
       usuario.numero = data.numero;
@@ -74,5 +74,9 @@ export class UsuarioService {
     async deleteOne(id: string){
       await this.usuarioRepository.delete( {id: parseInt(id)});
       return {deleted: true};
+  }
+
+  async findOne(email: string): Promise<Usuario | undefined> {
+    return this.usuarioRepository.findOne({email: email});
   }
 }
