@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { UsuarioCreateDto } from './dto/usuario.create.dto';
 import { switchMap, map, catchError} from 'rxjs/operators';
 import { Usuario } from './usuario.entity';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsuarioService {
@@ -21,7 +22,7 @@ export class UsuarioService {
     usuario.nome = data.nome;
     usuario.cpf = data.cpf;
     usuario.email = data.email;
-    usuario.senha = data.senha;
+    usuario.senha = bcrypt.hashSync(data.senha, 8);
     usuario.cep = data.cep;
     usuario.logradouro = data.logradouro;
     usuario.numero = data.numero;
