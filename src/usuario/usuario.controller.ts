@@ -1,22 +1,32 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Observable } from 'rxjs';
 import { ResultadoDto } from 'src/dto/resultado.dto';
 import { UsuarioCreateDto } from './dto/usuario.create.dto';
 import { Usuario } from './usuario.entity';
 import { UsuarioService } from './usuario.service';
 
-@Controller('usuario')
+@Controller('usuarios')
 export class UsuarioController {
   constructor(private readonly usuarioService: UsuarioService) {}
 
 
-    @Get('findall')
+    @Get()
     async findAll(): Promise<Usuario[]>{
-        return this.usuarioService.findAll();
+        return this.usuarioService.getAll();
     }
 
-    @Post('create')
+    @Post()
     async create(@Body() data: UsuarioCreateDto): Promise<ResultadoDto>{
         return this.usuarioService.create(data);
+    }
 
+    @Put(':id')
+    async update(@Param('id') id: string, @Body() data: UsuarioCreateDto): Promise<ResultadoDto> {
+        return this.usuarioService.update(parseInt(id), data);
+    }
+
+    @Delete(':id')
+    deleteone(@Param('id') id: string) {
+        return this.usuarioService.deleteOne(id);
     }
 }
