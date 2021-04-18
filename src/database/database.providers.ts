@@ -5,11 +5,7 @@ export const databaseProviders = [
     provide: 'DATABASE_CONNECTION',
     useFactory: async () => await createConnection({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: '102030',
-      database: 'bemol',
+      url: process.env.DATABASE_URL,
       entities: [
           __dirname + '/../**/*.entity{.ts,.js}',
       ],
