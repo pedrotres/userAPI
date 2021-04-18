@@ -10,6 +10,4 @@ export interface UsuarioCreateDto{
     localidade: string;
     uf: string;
     celular: string;
-
-
 }

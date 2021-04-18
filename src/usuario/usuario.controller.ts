@@ -1,9 +1,11 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Request, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiBody } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/auth/auth.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ResultadoDto } from 'src/dto/resultado.dto';
+import { UsuarioDto } from 'src/dto/usuario.dto';
 import { UsuarioCreateDto } from './dto/usuario.create.dto';
 import { Usuario } from './usuario.entity';
 import { UsuarioService } from './usuario.service';
@@ -20,6 +22,7 @@ export class UsuarioController {
     }
 
     @Post()
+    @ApiBody({type: UsuarioDto})
     async create(@Body() data: UsuarioCreateDto): Promise<ResultadoDto>{
         return this.usuarioService.create(data);
     }
