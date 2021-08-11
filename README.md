@@ -1,5 +1,5 @@
 ## Descrição
-Seja bem vindo a API Lomeb,
+API
 desenvolvida em NestJS + Postgres + TypeOrm
 
 ## Instalação
